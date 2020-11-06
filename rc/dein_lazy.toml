@@ -1,0 +1,42 @@
+# dein_lazy.toml
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+on_event = 'InsertCharPre'
+hook_source = '''
+	let g:deoplete#enable_at_startup = 1
+	call deoplete#custom#option({
+			\   'auto_complete_delay': 0,
+			\   'smart_case': v:true,
+			\   'max_list': 30,
+			\ })
+
+inoremap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"			
+'''
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+hook_source = '''
+	imap <C-k> <Plug>(neosnippet_expand_or_jump)
+	smap <C-k> <Plug>(neosnippet_expand_or_jump)
+	xmap <C-k> <Plug>(neosnippet_expand_target)
+	if has('conceal')
+		set conceallevel=2 concealcursor=niv
+	endif
+'''
+on_i  = 1
+on_ft = ['snippet']
+depends = ['neosnippet-snippets']
+
+[[plugins]]
+repo = 'tbodt/deoplete-tabnine'
+build = './install.sh'
+on_ft = 'ruby,go,perl,python'
+on_event = ['InsertEnter']
+depends = ['deoplete.nvim']
+
+[[plugins]]
+repo = 'deoplete-plugins/deoplete-jedi'
+on_event = ['InsertEnter']
+depends = ['deoplete.nvim']
